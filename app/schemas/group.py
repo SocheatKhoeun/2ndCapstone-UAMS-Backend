@@ -1,0 +1,32 @@
+from typing import Optional, List
+from pydantic import BaseModel, Field
+
+
+class GroupBase(BaseModel):
+    group_name: str
+    active: Optional[int] = 1
+
+
+class GroupCreate(GroupBase):
+    pass
+
+
+class GroupUpdate(BaseModel):
+    group_name: Optional[str]
+    active: Optional[int]
+
+
+class GroupOut(GroupBase):
+    global_id: str
+
+    class Config:
+        orm_mode = True
+
+
+class GroupsPage(BaseModel):
+    items: List[GroupOut]
+    total: int
+
+class ActiveUpdate(BaseModel):
+    value: int = Field(..., ge=0, le=1, description="0=inactive,1=active")
+    model_config = {"from_attributes": True}

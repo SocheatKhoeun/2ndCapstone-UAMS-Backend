@@ -1,0 +1,53 @@
+version: "3.9"
+
+name: fastapi-prod
+
+networks:
+  web:
+
+
+volumes:
+  caddy_data:
+  caddy_config:
+  grafana_data:
+
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      LOG_LEVEL: info
+    # healthcheck:
+    #   test: [ "CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1" ]
+    #   interval: 15s
+    #   timeout: 3s
+    #   retries: 5
+    # networks: [ web ]
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      PROD_DOMAIN: ${PROD_DOMAIN}
+      ACME_EMAIL: ${ACME_EMAIL}
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./docker:/etc/caddy # mount whole folder
+    depends_on: [ app, grafana ]
+    networks: [ web ]
+
+  grafana:
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GF_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GF_PASS}
+    networks: [ web ]

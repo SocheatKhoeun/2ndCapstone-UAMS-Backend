@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+sqlalchemy
+asyncpg
+pydantic
+pydantic-settings
+python-dotenv
+loguru
+passlib[bcrypt]
+PyJWT
+email-validator
