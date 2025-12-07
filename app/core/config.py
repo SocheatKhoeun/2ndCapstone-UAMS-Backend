@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     DB_PASSWORD: str = "change-me"
     DB_NAME: str = "fastapipro"
 
-    CORS_ORIGINS: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
+    CORS_ORIGINS: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:5000", "http://127.0.0.1:5000"]
     # JWT secret used to sign tokens. Prefer keeping this out of source control (.env or environment variable).
     JWT_PRIVATE: Optional[str] = None
 
