@@ -1,5 +1,6 @@
 from typing import Optional, List
 from pydantic import BaseModel, Field
+from datetime import datetime
 
 
 class GroupBase(BaseModel):
@@ -17,10 +18,14 @@ class GroupUpdate(BaseModel):
 
 
 class GroupOut(GroupBase):
+    id: int
     global_id: str
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 
 class GroupsPage(BaseModel):
