@@ -8,6 +8,7 @@ from app.api.v1.admin_auth_router import router as admin_auth_router
 from app.api.v1.admins.students_router import router as students_router
 from app.api.v1.user_auth_router import router as user_auth_router
 from app.api import auth as api_auth
+from app.api.v1.uploads import router as uploads_router
 
 api_router = APIRouter()
 
@@ -48,3 +49,6 @@ api_router.include_router(
 api_router.include_router(users_router, prefix="/user")
 # Students (instructors are mounted under /admins/instructors)
 api_router.include_router(students_router, prefix="/students")
+
+# Public uploads (no auth)
+api_router.include_router(uploads_router, prefix="/uploads")

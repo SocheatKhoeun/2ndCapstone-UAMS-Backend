@@ -9,3 +9,5 @@ loguru
 passlib[bcrypt]
 PyJWT
 email-validator
+cloudinary
+python-multipart

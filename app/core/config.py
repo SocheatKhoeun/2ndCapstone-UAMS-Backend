@@ -18,6 +18,12 @@ class Settings(BaseSettings):
     CORS_ORIGINS: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:5000", "http://127.0.0.1:5000"]
     # JWT secret used to sign tokens. Prefer keeping this out of source control (.env or environment variable).
     JWT_PRIVATE: Optional[str] = None
+    
+    # Cloudinary credentials (optional)
+    CLOUDINARY_CLOUD_NAME: Optional[str] = None
+    CLOUDINARY_API_KEY: Optional[str] = None
+    CLOUDINARY_API_SECRET: Optional[str] = None
+    CLOUDINARY_URL: Optional[str] = None
 
     # Load environment from .env and ignore extra keys so unknown env entries
     # (for deployment or docker-compose) don't cause validation failures.
